@@ -22,6 +22,7 @@ class PurchasesRepository:
         with self.cloud_database.connect() as conn:
             purchases = pd.read_sql_table(TABLE_NAME, conn)[['description', 'unit']]
             purchases = purchases[['description', 'unit']]
+            purchases = purchases.drop_duplicates(subset=['description']).reset_index(drop=True)
             return purchases
 
     def _get_from_local(self) -> pd.DataFrame:
