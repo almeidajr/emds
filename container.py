@@ -6,6 +6,8 @@ from sqlalchemy.engine.mock import MockConnection
 
 from config import Config
 from repositories.purchases_repository import PurchasesRepository
+from services.google_service import GoogleService
+from services.html_service import HtmlService
 
 
 class Container:
@@ -18,3 +20,5 @@ class Container:
             cloud_database=self.cloud_database,
             local_database=self.local_database,
         )
+        self.html_service: Final[HtmlService] = HtmlService()
+        self.google_service: Final[GoogleService] = GoogleService(html_service=self.html_service)
